@@ -21,6 +21,9 @@
     "icon",
     "windows"
   ],
+  "os": [
+    "win32"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/JosephusPaye/shell-image-win.git"
