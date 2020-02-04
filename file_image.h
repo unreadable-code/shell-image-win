@@ -9,8 +9,8 @@
 
 class FileImageAsyncWorker : public Nan::AsyncWorker {
     public:
-        FileImageAsyncWorker(const char* name, uint32_t width, uint32_t height, uint32_t flags, Nan::Callback* callback)
-            : Nan::AsyncWorker{callback}, name{ name }, width{ width }, height{ height }, flags{ flags }
+        FileImageAsyncWorker(const char* name, int32_t width, int32_t height, int32_t flags, Nan::Callback* callback)
+            : Nan::AsyncWorker(callback), _name(name), _width(width), _height(height), _flags(flags)
         {
             // Empty constructor
         }
@@ -19,12 +19,12 @@ class FileImageAsyncWorker : public Nan::AsyncWorker {
 
     protected:
         void HandleOKCallback() override {
-            if (!this->result.empty()) {
+            if (!_result.empty()) {
                 v8::Local<v8::Value> argv[] = {
                     Nan::Null(),
                     Nan::CopyBuffer(
-                        static_cast<char*>(static_cast<void*>(this->result.data())),
-                        this->result.size()
+                        static_cast<char*>(static_cast<void*>(_result.data())),
+                        _result.size()
                     ).ToLocalChecked(),
                 };
 
@@ -36,9 +36,9 @@ class FileImageAsyncWorker : public Nan::AsyncWorker {
         }
 
     private:
-        std::string name;
-        uint32_t width;
-        uint32_t height;
-        uint32_t flags;
-        std::vector<unsigned char> result;
+        std::string const _name;
+        int32_t const _width;
+        int32_t const _height;
+        int32_t const _flags;
+        std::vector<unsigned char> _result;
 };

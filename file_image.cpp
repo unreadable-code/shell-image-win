@@ -6,6 +6,7 @@ namespace Gdiplus {
 }
 
 #include <Gdiplus.h>
+#include <system_error>
 
 class ComInit {
     public:
@@ -243,5 +244,5 @@ std::vector<unsigned char> GetImageForPath(const std::string& name, uint32_t wid
 }
 
 void FileImageAsyncWorker::Execute() {
-    this->result = GetImageForPath(this->name, this->width, this->height, this->flags);
+    _result = GetImageForPath(_name, _width, _height, _flags);
 }

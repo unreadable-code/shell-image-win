@@ -31,13 +31,16 @@ NAN_METHOD(getImageForPath) {
         return;
     }
 
-    v8::String::Utf8Value path{info[0]->ToString()};
-    auto width = static_cast<uint32_t>(info[1]->Int32Value());
-    auto height = static_cast<uint32_t>(info[2]->Int32Value());
-    auto flags = static_cast<uint32_t>(info[3]->Int32Value());
+    v8::Isolate* isolate = info.GetIsolate();
+    v8::Local<v8::Context> context = Nan::GetCurrentContext();
+    v8::Local<v8::String> path = info[0]->ToString(context).ToLocalChecked();
+    v8::String::Utf8Value pathValue(isolate, path);
+    int32_t width = info[1]->Int32Value(context).ToChecked();
+    int32_t height = info[2]->Int32Value(context).ToChecked();
+    int32_t flags = info[3]->Int32Value(context).ToChecked();
     auto callback = new Nan::Callback(info[4].As<v8::Function>());
 
-    Nan::AsyncQueueWorker(new FileImageAsyncWorker(*path, width, height, flags, callback));
+    Nan::AsyncQueueWorker(new FileImageAsyncWorker(*pathValue, width, height, flags, callback));
 }
 
 NAN_MODULE_INIT(init) {
