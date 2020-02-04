@@ -1,4 +1,4 @@
-const addon = require('bindings')('addon');
+const addon = require('./build/Release/addon');
 
 function getImageForPath(path, options = {}, callback) {
     options.width = options.width || 256;
