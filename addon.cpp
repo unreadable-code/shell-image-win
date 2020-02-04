@@ -44,7 +44,7 @@ NAN_METHOD(getImageForPath) {
 }
 
 NAN_MODULE_INIT(init) {
-    NAN_EXPORT(target, getImageForPath);
+    Nan::SetMethod(target, "getImageForPath", getImageForPath);
 
     Nan::Set(
         target,
@@ -107,4 +107,8 @@ NAN_MODULE_INIT(init) {
     );
 }
 
+#if NODE_MAJOR_VERSION >= 10
+NAN_MODULE_WORKER_ENABLED(file_image, init)
+#else
 NODE_MODULE(file_image, init);
+#endif
