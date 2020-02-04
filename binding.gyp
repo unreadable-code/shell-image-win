@@ -1,28 +1,9 @@
 {
     'target_defaults': {
         'defines': [
-            '_WIN32_WINNT=0x0600',
+            '_WIN32_WINVER=0x0602',
+            '_WIN32_WINNT=0x0602',
         ],
-        'msbuild_settings': {
-            'ClCompile': {
-                'WarningLevel': 'Level3',
-                'Optimization': 'Full',
-                'FunctionLevelLinking': 'true',
-            },
-            'Lib': {
-                'LinkTimeCodeGeneration': 'true',
-            },
-        },
-        'msvs_settings': {
-            'VCCLCompilerTool': {
-                'WarningLevel': '3',
-                'Optimization': '3',
-                'EnableFunctionLevelLinking': 'true',
-            },
-            'VCLibrarianTool': {
-                'LinkTimeCodeGeneration': 'true',
-            },
-        },
     },
     'targets': [
         {
